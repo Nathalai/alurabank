@@ -1,12 +1,6 @@
 export class Negociacao {
     constructor(data, quantidade, valor) {
-        if (data instanceof Date) {
-            this._data = data;
-        }
-        else {
-            console.log("Imput de data inválido");
-            return;
-        }
+        this._data = data;
         this._quantidade = quantidade;
         this._valor = valor;
     }
