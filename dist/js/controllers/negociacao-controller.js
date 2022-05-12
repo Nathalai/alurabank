@@ -6,7 +6,7 @@ import { NegociacoesView } from "../views/negociacoes-view.js";
 export class NegociacaoController {
     constructor() {
         this.listaNegociacoes = new ListaNegociacoes;
-        this.negociacoesView = new NegociacoesView("#negociacoesView");
+        this.negociacoesView = new NegociacoesView("#negociacoesView", true);
         this.mensagemView = new MensagemView("#mensagemView");
         this.inputData = document.querySelector("#data");
         this.inputQuantidade = document.querySelector("#quantidade");
@@ -14,7 +14,7 @@ export class NegociacaoController {
         this.negociacoesView.update(this.listaNegociacoes);
     }
     adicionaNegociacaoNaLista() {
-        const negociacao = this.criaNegociacao();
+        const negociacao = Negociacao.criaNegociacao(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
         if (!this.confereSeDiaUtil(negociacao.data)) {
             this.mensagemView.update("Negociações só podem ser feitas em dias úteis (segunda-feira a sexta-feira");
             return;
@@ -26,13 +26,6 @@ export class NegociacaoController {
     confereSeDiaUtil(data) {
         return data.getDay() > DiasDaSemana.DOMINGO
             && data.getDay() < DiasDaSemana.SABADO;
-    }
-    criaNegociacao() {
-        const exp = /-/g;
-        const data = new Date(this.inputData.value.replace(exp, ","));
-        const quantidade = parseInt(this.inputQuantidade.value);
-        const valor = parseFloat(this.inputValor.value);
-        return new Negociacao(data, quantidade, valor);
     }
     atualizaView() {
         this.negociacoesView.update(this.listaNegociacoes);
