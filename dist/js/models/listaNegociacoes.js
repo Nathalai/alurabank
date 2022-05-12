@@ -1,6 +1,6 @@
 export class ListaNegociacoes {
     constructor() {
-        this.negociacoes = []; //Negociacao[] significa o mesmo que Array<Negociacao>
+        this.negociacoes = [];
     }
     adiciona(negociacao) {
         this.negociacoes.push(negociacao);
