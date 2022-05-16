@@ -13,7 +13,7 @@ import { NegociacoesView } from "../views/negociacoes-view.js";
 export class NegociacaoController {
     constructor() {
         this.listaNegociacoes = new ListaNegociacoes;
-        this.negociacoesView = new NegociacoesView("#negociacoesView", true);
+        this.negociacoesView = new NegociacoesView("#negociacoesView");
         this.mensagemView = new MensagemView("#mensagemView");
         this.inputData = document.querySelector("#data");
         this.inputQuantidade = document.querySelector("#quantidade");
@@ -23,7 +23,7 @@ export class NegociacaoController {
     adicionaNegociacaoNaLista() {
         const negociacao = Negociacao.criaNegociacao(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
         if (!this.confereSeDiaUtil(negociacao.data)) {
-            this.mensagemView.update("Negociações só podem ser feitas em dias úteis (segunda-feira a sexta-feira)");
+            this.mensagemView.update("Negociações só podem ser feitas em dias úteis (segunda-feira a sexta-feira");
             return;
         }
         this.listaNegociacoes.adiciona(negociacao);
@@ -46,5 +46,5 @@ export class NegociacaoController {
     }
 }
 __decorate([
-    logarTempoDeExecucao()
+    logarTempoDeExecucao(true)
 ], NegociacaoController.prototype, "adicionaNegociacaoNaLista", null);
