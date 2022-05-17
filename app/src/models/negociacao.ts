@@ -1,4 +1,6 @@
-export class Negociacao {
+import { Modelo } from "../interfaces/modelo.js";
+
+export class Negociacao implements Modelo<Negociacao>{
     /* Poderia escrever o código da seguinte maneira, declarando as propriedades e depois chamando no construtor:
     private _data: Date;
     private _quantidade: number;
@@ -19,6 +21,14 @@ export class Negociacao {
         private _quantidade: number,
         private _valor: number
     ) {}
+
+    public static criaNegociacao(dataString: string, quantidadeString: string, valorString: string): Negociacao {
+        const exp = /-/g;
+        const data = new Date(dataString.replace(exp, ","));
+        const quantidade = parseInt(quantidadeString);
+        const valor = parseFloat(valorString);
+        return new Negociacao(data, quantidade, valor);
+    }
 
     get data(): Date{
         const copiaData = new Date(this._data.getTime()); 
@@ -41,11 +51,18 @@ export class Negociacao {
         return volume;
     }
 
-    public static criaNegociacao(dataString: string, quantidadeString: string, valorString: string): Negociacao {
-        const exp = /-/g;
-        const data = new Date(dataString.replace(exp, ","));
-        const quantidade = parseInt(quantidadeString);
-        const valor = parseFloat(valorString);
-        return new Negociacao(data, quantidade, valor);
+    public paraTexto(): string {
+        return `
+            Data: ${this.data},
+            Quantidade: ${this.quantidade},
+            Valor: ${this.valor},
+            Volume: ${this.volume}
+        `;
+    }
+
+    public verificaSeEhIgual(negociacao: Negociacao): boolean {
+        return this.data.getDate() === negociacao.data.getDate()
+            && this.data.getMonth() === negociacao.data.getMonth()
+            && this.data.getFullYear() === negociacao.data.getFullYear();
     }
 }
